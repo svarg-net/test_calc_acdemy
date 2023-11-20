@@ -1,7 +1,6 @@
 package example
 
 import (
-	"fmt"
 	"log"
 	"regexp"
 	"strconv"
@@ -23,27 +22,6 @@ type ExampleStruct struct {
 }
 
 func (e *Example) Construct() {
-	//re := regexp.MustCompile(`([0-9IVX]+)([\+\-\*/]{1})([0-9IVX]+)`)
-	//re := regexp.MustCompile(`[\+\-\*/]`)
-	//fmt.Println("пример:", e.StrExample)
-	//fmt.Println()
-	//exampleNew := re.FindStringSubmatch(e.StrExample)
-	//exampleNew := re.Split(e.StrExample, -1)
-	//fmt.Println(" len(exampleNew)", len(exampleNew))
-	//fmt.Println(" len(exampleNew)", exampleNew[0])
-	//fmt.Println(" len(exampleNew)", exampleNew[1])
-	//if len(exampleNew) < 2 {
-	//	log.Fatal("Вывод ошибки, так как строка не является математической операцией.")
-	//}
-	//
-	//if len(exampleNew) > 2 {
-	//	log.Fatal("Вывод ошибки, так как формат математической операции не удовлетворяет заданию — два операнда и один оператор (+, -, /, *).")
-	//}
-	//e.data.FirstNumber.Value = exampleNew[0]
-	//e.data.FirstNumber.getInt()
-	//e.data.SecondNumber.Value = exampleNew[1]
-	//e.data.SecondNumber.getInt()
-	//e.data.Action = exampleNew[1]
 	e.getNumber()
 	e.getAction()
 	e.validation()
@@ -59,7 +37,6 @@ func (e *Example) validation() {
 }
 
 func (e *Example) Result() string {
-	fmt.Println(e)
 	FirstNumber := e.data.FirstNumber.Int
 	SecondNumber := e.data.SecondNumber.Int
 	resultNumber := Number{}
