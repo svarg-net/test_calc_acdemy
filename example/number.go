@@ -41,13 +41,15 @@ func (n *Number) romeToArabic() {
 }
 
 func (n *Number) toRome() {
-	romeNumerals := map[int]string{10: "X", 5: "V", 1: "I"}
+	romeNumerals := map[int]string{10: "X", 9: "IX", 5: "V", 4: "IV", 1: "I"}
 	result := ""
 	for n.Int > 0 {
 		for i, r := range romeNumerals {
-			if n.Int >= i {
+			if n.Int > i {
 				result += r
 				n.Int -= i
+			} else {
+
 			}
 		}
 	}

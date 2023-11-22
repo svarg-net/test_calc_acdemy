@@ -50,7 +50,7 @@ func (e *Example) Result() string {
 	case "/":
 		resultNumber.Int = (FirstNumber / SecondNumber)
 	}
-	if e.data.FirstNumber.TypeNumber == TypeNumbers2 && e.data.FirstNumber.TypeNumber == TypeNumbers2 {
+	if e.data.SecondNumber.TypeNumber == TypeNumbers2 && e.data.FirstNumber.TypeNumber == TypeNumbers2 {
 		if resultNumber.Int <= 0 {
 			return "Римское число не должно быть отрицательным"
 		} else {
