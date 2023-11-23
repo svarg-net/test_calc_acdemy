@@ -26,33 +26,56 @@ func (n *Number) getInt() {
 	}
 }
 
+type RomanNumeral struct {
+	Value  int
+	Symbol string
+}
+
+var RomanNumerals = []RomanNumeral{
+	{100, "C"},
+	{90, "XC"},
+	{50, "L"},
+	{40, "XL"},
+	{10, "X"},
+	{9, "IX"},
+	{5, "V"},
+	{4, "IV"},
+	{1, "I"},
+}
+
 func (n *Number) romeToArabic() {
-	romeNumerals := map[string]int{"X": 10, "V": 5, "I": 1}
 	result := 0
 	for i, v := range n.Value {
-		if i < len(n.Value)-1 && romeNumerals[string(v)] < romeNumerals[string(n.Value[i+1])] {
-			result -= romeNumerals[string(v)]
+		val := findSymbol(RomanNumerals, string(v))
+		valNext := 0
+		if i+1 < len(n.Value) {
+			valNext = findSymbol(RomanNumerals, string(n.Value[i+1]))
+		}
+		if i < len(n.Value)-1 && val < valNext {
+			result -= val
 		} else {
-			result += romeNumerals[string(v)]
+			result += val
 		}
 	}
 	n.Int = result
-
 }
 
 func (n *Number) toRome() {
-	romeNumerals := map[int]string{10: "X", 9: "IX", 5: "V", 4: "IV", 1: "I"}
 	result := ""
-	for n.Int > 0 {
-		for i, r := range romeNumerals {
-			if n.Int > i {
-				result += r
-				n.Int -= i
-			} else {
-
-			}
+	for _, r := range RomanNumerals {
+		for n.Int >= r.Value {
+			result += r.Symbol
+			n.Int -= r.Value
 		}
 	}
 	n.Value = result
+}
 
+func findSymbol(romanNumerals []RomanNumeral, symbol string) int {
+	for _, r := range romanNumerals {
+		if r.Symbol == symbol {
+			return r.Value
+		}
+	}
+	return 0
 }
