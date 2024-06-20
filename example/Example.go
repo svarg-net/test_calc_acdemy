@@ -1,7 +1,6 @@
 package example
 
 import (
-	"log"
 	"regexp"
 	"strconv"
 )
@@ -29,10 +28,10 @@ func (e *Example) Construct() {
 
 func (e *Example) validation() {
 	if e.data.FirstNumber.TypeNumber != e.data.SecondNumber.TypeNumber {
-		log.Fatal("Вывод ошибки, так как используются одновременно разные системы счисления")
+		panic("Вывод ошибки, так как используются одновременно разные системы счисления")
 	}
-	if (e.data.FirstNumber.Int > 10 && e.data.FirstNumber.Int < 1) || (e.data.SecondNumber.Int > 10 && e.data.SecondNumber.Int < 1) {
-		log.Fatal("Калькулятор принимает на вход числа от 1 до 10")
+	if (e.data.FirstNumber.Int < 1 || e.data.FirstNumber.Int > 10) || (e.data.SecondNumber.Int < 1 || e.data.SecondNumber.Int > 10) {
+		panic("Калькулятор принимает на вход числа от 1 до 10")
 	}
 }
 
@@ -52,7 +51,7 @@ func (e *Example) Result() string {
 	}
 	if e.data.SecondNumber.TypeNumber == TypeNumbers2 && e.data.FirstNumber.TypeNumber == TypeNumbers2 {
 		if resultNumber.Int <= 0 {
-			return "Римское число не должно быть отрицательным"
+			panic("Римское число не должно быть отрицательным")
 		} else {
 			resultNumber.toRome()
 			return resultNumber.Value
@@ -73,11 +72,11 @@ func (e *Example) getNumber() {
 	re := regexp.MustCompile(`[\+\-\*/]`)
 	exampleNew := re.Split(e.StrExample, -1)
 	if len(exampleNew) < 2 {
-		log.Fatal("Вывод ошибки, так как строка не является математической операцией.")
+		panic("Вывод ошибки, так как строка не является математической операцией.")
 	}
 
 	if len(exampleNew) > 2 {
-		log.Fatal("Вывод ошибки, так как формат математической операции не удовлетворяет заданию — два операнда и один оператор (+, -, /, *).")
+		panic("Вывод ошибки, так как формат математической операции не удовлетворяет заданию — два операнда и один оператор (+, -, /, *).")
 	}
 	e.data.FirstNumber.Value = exampleNew[0]
 	e.data.FirstNumber.getInt()

@@ -7,7 +7,14 @@ import (
 	"os"
 )
 
+func handlePanic() {
+	if r := recover(); r != nil {
+		fmt.Printf("%v", r)
+	}
+}
+
 func main() {
+	defer handlePanic()
 	input := "1+2"
 	buf := bufio.NewReader(os.Stdin)
 	fmt.Fscan(buf, &input)
